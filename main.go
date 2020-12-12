@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -14,15 +13,6 @@ import (
 
 // FOR RASPBERRY PI:
 // env GOOS=linux GOARCH=arm GOARM=5 go build
-
-var (
-	flagDebug         = flag.Bool("debug", false, "Debug/verbose mode")
-	flagAddressesFile = flag.String("addresses", "/etc/proxy.addresses.list", "Addresses to only allow from")
-)
-
-func init() {
-	flag.Parse()
-}
 
 func main() {
 	// Build the server
@@ -94,7 +84,6 @@ func getIP(r *http.Request) (string, error) {
 
 func loadAddresses() ([]string, error) {
 	data, err := ioutil.ReadFile(*flagAddressesFile)
-
 	if err != nil {
 		return nil, err
 	}
