@@ -27,7 +27,7 @@ func main() {
 	}
 
 	// Run the server
-	log.Fatal(http.ListenAndServe(":8080", proxy))
+	log.Fatal(http.ListenAndServe(*flagBindAddress, proxy))
 }
 
 func inIPList(ips ...string) goproxy.ReqConditionFunc {
