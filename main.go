@@ -24,7 +24,7 @@ func main() {
 
 	// Security. Only proxy requests from certain IP addresses. IF it errors out,
 	if addresses, err := loadAddresses(); err == nil {
-		proxy.OnRequest(goproxy.Not(allowIPFrom(addresses...))).HandleConnect(goproxy.AlwaysReject)
+		proxy.OnRequest(goproxy.Not(inIPList(addresses...))).HandleConnect(goproxy.AlwaysReject)
 	} else {
 		fmt.Println("ERROR LOADING ADDRESSES: ", err.Error())
 	}
@@ -33,7 +33,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8080", proxy))
 }
 
-func allowIPFrom(ips ...string) goproxy.ReqConditionFunc {
+func inIPList(ips ...string) goproxy.ReqConditionFunc {
 	return func(req *http.Request, ctx *goproxy.ProxyCtx) bool {
 		reqIP, err := getIP(req)
 		fmt.Println(reqIP)
