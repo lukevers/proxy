@@ -8,9 +8,6 @@ import (
 	"github.com/elazarl/goproxy"
 )
 
-// FOR RASPBERRY PI:
-// env GOOS=linux GOARCH=arm GOARM=5 go build
-
 func main() {
 	// Build the server
 	proxy := goproxy.NewProxyHttpServer()
